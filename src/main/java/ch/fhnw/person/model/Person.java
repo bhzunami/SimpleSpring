@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,6 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table
@@ -21,9 +28,22 @@ public class Person implements Serializable {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	@NotNull
+	@NotBlank
+	@Column(unique = true)
 	private String firstname;
+	
+	@NotNull
+	@NotBlank
 	private String lastname;
+	
+	@NotNull
+	@Min(8)
+	@Max(110)
 	private Integer age;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal( TemporalType.DATE ) // Time / Date / Timestamp
 	private Date birthday;
 	

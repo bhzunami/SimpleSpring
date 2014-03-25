@@ -1,14 +1,22 @@
 <?xml  version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans    
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.0.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<context:annotation-config />
+	
+	<mvc:annotation-driven />
+	
 	<context:component-scan base-package="ch.fhnw.person" />
 
 	<bean id="jspViewResolver"
@@ -34,7 +42,6 @@
 		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.databaseurl}"
 		p:username="${jdbc.username}" p:password="${jdbc.password}" />
 
-
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource">
@@ -54,13 +61,8 @@
 		</property>
 	</bean>
 
-
 	<!-- Use @Transaction annotations for managing transactions -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<!-- <bean id="personDao" class="ch.fhnw.person.dao.PersonDaoImpl"></bean> 
-		<bean id="personService" class="ch.fhnw.person.service.PersonServiceImpl"></bean> -->
-
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
